@@ -123,12 +123,6 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
