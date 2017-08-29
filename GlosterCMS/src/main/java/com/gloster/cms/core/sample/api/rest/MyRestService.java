@@ -21,6 +21,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -30,10 +32,13 @@ import javax.ws.rs.core.Response;
 @Path("/myservice")
 public class MyRestService {
 
+    Logger LOG = LoggerFactory.getLogger(MyRestService.class);
+    
     @GET
     @Path("/simple")
     @Produces(MediaType.TEXT_PLAIN)
     public Response mySimpleRest() {
+        LOG.debug("===== ALOHA ====");
         return Response.ok().entity("Hello World").build();
     }
 

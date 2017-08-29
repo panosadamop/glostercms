@@ -13,41 +13,17 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit>4.12</junit>
+        <mysql-connector-java>6.0.6</mysql-connector-java>
         <postgresql>9.1-901-1.jdbc4</postgresql>
         <mssql>6.2.1.jre8</mssql>
-        <version.wildfly.swarm>2017.8.1</version.wildfly.swarm>
-        <version.mysql>6.0.6</version.mysql>
+        <version.wildfly.swarm>2017.7.0</version.wildfly.swarm>
     </properties>
     
     <dependencies>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.10.Final</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>dom4j</groupId>
-                    <artifactId>dom4j</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
-        </dependency>
-        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!--Logger-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
             <scope>provided</scope>
         </dependency>
         
@@ -66,13 +42,18 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!--LOGGING-->
+        <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>logging</artifactId>
+        </dependency>
  
         <!-- database drivers -->
 
-        <dependency>
+        <!--dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${version.mysql}</version>
+            <version>${mysql-connector-java}</version>
         </dependency>
        
         <dependency>
@@ -86,20 +67,7 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>${mssql}</version>
         </dependency>
-
-        <!-- TEST -->
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>arquillian</artifactId>
-            <scope>test</scope>
-        </dependency>
- <dependency>
-     <groupId>org.jboss</groupId>
-     <artifactId>jandex</artifactId>
-     <version>2.0.1.Final</version>
- </dependency>
-    </dependencies>
-
+    </dependencies -->
 
     <dependencyManagement>
         <dependencies>
