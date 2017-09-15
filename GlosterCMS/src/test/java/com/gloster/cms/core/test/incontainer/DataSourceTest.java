@@ -33,8 +33,8 @@ import org.wildfly.swarm.arquillian.DefaultDeployment;
  *
  * @author diakogiannisa
  */
-@RunWith(Arquillian.class)
-@DefaultDeployment(type = DefaultDeployment.Type.JAR)
+//@RunWith(Arquillian.class)
+//@DefaultDeployment(type = DefaultDeployment.Type.JAR)
 public class DataSourceTest {
 
     Logger LOG = LoggerFactory.getLogger(DataSourceTest.class);
@@ -42,7 +42,7 @@ public class DataSourceTest {
     //@ArquillianResource
     //InitialContext context;
 
-    @Test
+  //  @Test
     public void testDataSourceIsBound() throws Exception {
        
 //        NamingEnumeration<NameClassPair> list = context.list("");

@@ -22,6 +22,6 @@ swarm:
         data-sources:
           CoreDS:
             driver-name: mysql
-            connection-url: jdbc:mysql://localhost:3306/GlosterCMSDB?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+            connection-url: jdbc:mysql://127.0.0.1:3306/glostercmsdb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
             user-name: gloster
             password: gloster
