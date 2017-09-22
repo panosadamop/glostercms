@@ -30,16 +30,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
  * @author diakogiannisa
  */
 @Entity
-@Table(catalog = "glostercmsdb", schema = "")
-@XmlRootElement
+@Table
 @NamedQueries({
     @NamedQuery(name = "Permissions.findAll", query = "SELECT p FROM Permissions p")
     , @NamedQuery(name = "Permissions.findByPermissionId", query = "SELECT p FROM Permissions p WHERE p.permissionId = :permissionId")
@@ -92,7 +90,6 @@ public class Permissions implements Serializable {
         this.permissionName = permissionName;
     }
 
-    @XmlTransient
     public Collection<Roles> getRolesCollection() {
         return rolesCollection;
     }

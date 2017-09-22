@@ -31,17 +31,16 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
+
 
 /**
  *
  * @author diakogiannisa
  */
 @Entity
-@Table(catalog = "glostercmsdb", schema = "", uniqueConstraints = {
+@Table( uniqueConstraints = {
     @UniqueConstraint(columnNames = {"role_name"})})
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
     , @NamedQuery(name = "Roles.findByRolesId", query = "SELECT r FROM Roles r WHERE r.rolesId = :rolesId")
@@ -96,7 +95,6 @@ public class Roles implements Serializable {
         this.roleName = roleName;
     }
 
-    @XmlTransient
     public Collection<Permissions> getPermissionsCollection() {
         return permissionsCollection;
     }
@@ -105,7 +103,6 @@ public class Roles implements Serializable {
         this.permissionsCollection = permissionsCollection;
     }
 
-    @XmlTransient
     public Collection<Users> getUsersCollection() {
         return usersCollection;
     }
