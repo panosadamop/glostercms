@@ -16,10 +16,15 @@
 package com.gloster.cms.core.sample.api.rest;
 
 import com.gloster.cms.core.model.entity.Permissions;
+import com.gloster.cms.core.model.entity.QPermissions;
+import com.gloster.cms.core.model.entity.QRoles;
 import com.gloster.cms.core.model.entity.Roles;
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
+import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,7 +40,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Alexius Diakogiannis <alexius@jee.gr>
  */
-@Stateful
+@Singleton
 @Path("/myservice")
 public class MyRestService {
 
@@ -47,7 +52,7 @@ public class MyRestService {
     
     @GET
     @Path("/simple")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response mySimpleRest() {
         LOG.debug("===== ALOHA ====");
         
@@ -68,9 +73,12 @@ public class MyRestService {
         
         em.flush();
         
+        JPAQuery query = new JPAQuery(em);
+        QRoles role = QRoles.roles;
+        QPermissions permission = QPermissions.permissions;
+        List<Roles> roles = query.from(role).leftJoin(role.permissionsCollection, permission).fetchJoin().fetch();
         
-        
-        return Response.ok().entity("Hello World").build();
+        return Response.ok().entity(roles).build();
     }
 
 }
