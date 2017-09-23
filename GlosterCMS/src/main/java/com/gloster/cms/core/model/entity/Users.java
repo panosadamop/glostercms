@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -57,8 +58,8 @@ public class Users implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 16)
-    @Column(name = "user_id", nullable = false, length = 16)
+    @Size(min = 1, max = 36)
+    @Column(name = "user_id", nullable = false, length = 36)
     private String userId;
     @Basic(optional = false)
     @NotNull
@@ -91,7 +92,7 @@ public class Users implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "last_name", nullable = false, length = 255)
     private String lastName;
-    @ManyToMany(mappedBy = "usersCollection", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "usersCollection", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private Collection<Roles> rolesCollection;
 
     public Users() {

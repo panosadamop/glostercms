@@ -9,10 +9,10 @@ swarm:
         offset: 10
     logging:
         root-logger:
-            level: FINEST
+            level: DEBUG
         console-handlers:
             CONSOLE:
-                level: FINEST
+                level: DEBUG
     jdbc-drivers:
         mysql:
             driver-class-name: com.mysql.jdbc.Driver

@@ -18,6 +18,7 @@ package com.gloster.cms.core.model.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,8 +52,8 @@ public class Roles implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 16)
-    @Column(name = "roles_id", nullable = false, length = 16)
+    @Size(min = 1, max = 36)
+    @Column(name = "roles_id", nullable = false, length = 36)
     private String rolesId;
     @Basic(optional = false)
     @NotNull
@@ -64,7 +65,7 @@ public class Roles implements Serializable {
     @JoinTable(name = "user_roles", joinColumns = {
         @JoinColumn(name = "roles_roles_id", referencedColumnName = "roles_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "users_user_id", referencedColumnName = "user_id", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private Collection<Users> usersCollection;
 
     public Roles() {

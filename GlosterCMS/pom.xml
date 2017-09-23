@@ -19,6 +19,7 @@
         <version.mysql>6.0.6</version.mysql>
         <hibernate-validator-version>6.0.2.Final</hibernate-validator-version>
         <hibernate-core-version>5.2.11.Final</hibernate-core-version>
+        <eclipse-collections>9.0.0</eclipse-collections>
     </properties>
     
     <dependencies>
@@ -76,6 +77,14 @@
             <version>1.7.25</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.eclipse.collections/eclipse-collections -->
+        <dependency>
+            <groupId>org.eclipse.collections</groupId>
+            <artifactId>eclipse-collections</artifactId>
+            <version>${eclipse-collections}</version>
+        </dependency>
+
         
         <!-- Junit -->
         <dependency>
