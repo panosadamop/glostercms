@@ -15,6 +15,7 @@
  */
 package com.gloster.cms.core.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -24,6 +25,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,13 +37,12 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 /**
  *
  * @author diakogiannisa
  */
 @Entity
-@Table( uniqueConstraints = {
+@Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"email"})
     , @UniqueConstraint(columnNames = {"username"})})
 @NamedQueries({
@@ -92,7 +94,11 @@ public class Users implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "last_name", nullable = false, length = 255)
     private String lastName;
-    @ManyToMany(mappedBy = "usersCollection", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+
+    @JoinTable(name = "user_roles", joinColumns = {
+        @JoinColumn(name = "users_user_id", referencedColumnName = "user_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "roles_roles_id", referencedColumnName = "roles_id", nullable = false)})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Collection<Roles> rolesCollection;
 
     public Users() {
@@ -201,6 +207,4 @@ public class Users implements Serializable {
         return "Users{" + "userId=" + userId + ", username=" + username + ", email=" + email + ", password=" + password + ", createdDate=" + createdDate + ", firstName=" + firstName + ", lastName=" + lastName + ", rolesCollection=" + rolesCollection + '}';
     }
 
-    
-    
 }

@@ -15,6 +15,7 @@
  */
 package com.gloster.cms.core.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -57,10 +58,9 @@ public class Permissions implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "permission_name", nullable = false, length = 45)
     private String permissionName;
-    @JoinTable(name = "roles_permissions", joinColumns = {
-        @JoinColumn(name = "permissions_permission_id", referencedColumnName = "permission_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "roles_roles_id", referencedColumnName = "roles_id", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "permissionsCollection")
     private Collection<Roles> rolesCollection;
 
     public Permissions() {
@@ -90,7 +90,8 @@ public class Permissions implements Serializable {
     public void setPermissionName(String permissionName) {
         this.permissionName = permissionName;
     }
-
+    
+    @JsonIgnore
     public Collection<Roles> getRolesCollection() {
         return rolesCollection;
     }

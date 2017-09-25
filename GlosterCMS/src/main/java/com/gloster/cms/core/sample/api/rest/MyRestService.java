@@ -15,19 +15,10 @@
  */
 package com.gloster.cms.core.sample.api.rest;
 
-import com.gloster.cms.core.model.entity.Permissions;
-import com.gloster.cms.core.model.entity.QPermissions;
-import com.gloster.cms.core.model.entity.QRoles;
-import com.gloster.cms.core.model.entity.Roles;
-import com.querydsl.jpa.impl.JPAQuery;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import com.gloster.cms.core.authority.services.UserService;
+import com.gloster.cms.core.authority.exceptions.persistance.GenericPersistanceException;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.ejb.Stateful;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -46,39 +37,22 @@ public class MyRestService {
 
     Logger LOG = LoggerFactory.getLogger(MyRestService.class);
     
-    @PersistenceContext
-    private EntityManager em;
+    @EJB
+    UserService userService;
 
     
     @GET
     @Path("/simple")
     @Produces(MediaType.APPLICATION_JSON)
     public Response mySimpleRest() {
-        LOG.debug("===== ALOHA ====");
         
-        Roles r = new Roles(UUID.randomUUID().toString(), "FOO_ROLE");
-        em.persist(r);
-        Collection<Roles> col = new ArrayList();
-        col.add(r);
-        Permissions p = new Permissions(UUID.randomUUID().toString(), "A_GOOD_PERMISSION");
-        p.setRolesCollection(col);
+        try{
+            userService.generateDummyUserData();
+        }catch(Exception e){
+            LOG.error(e.getLocalizedMessage());
+        }
         
-        em.persist(p);
-        p = new Permissions(UUID.randomUUID().toString(), "A_GOOD_PERMISSION2");
-        p.setRolesCollection(col);
-        em.persist(p);
-        p = new Permissions(UUID.randomUUID().toString(), "A_GOOD_PERMISSION3");
-        p.setRolesCollection(col);
-        em.persist(p);
-        
-        em.flush();
-        
-        JPAQuery query = new JPAQuery(em);
-        QRoles role = QRoles.roles;
-        QPermissions permission = QPermissions.permissions;
-        List<Roles> roles = query.from(role).leftJoin(role.permissionsCollection, permission).fetchJoin().fetch();
-        
-        return Response.ok().entity(roles).build();
+        return Response.ok().entity(userService.getAllroles()).build();
     }
 
 }

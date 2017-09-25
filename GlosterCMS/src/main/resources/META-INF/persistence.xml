@@ -21,7 +21,7 @@
          data source, the example data source is just for proofs of concept! -->
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:jboss/datasources/CoreDS</jta-data-source>
-     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- Properties for Hibernate -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

@@ -15,6 +15,7 @@
  */
 package com.gloster.cms.core.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -33,14 +34,12 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-
 /**
  *
  * @author diakogiannisa
  */
 @Entity
-@Table( uniqueConstraints = {
+@Table(uniqueConstraints = {
     @UniqueConstraint(columnNames = {"role_name"})})
 @NamedQueries({
     @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r")
@@ -60,12 +59,22 @@ public class Roles implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "role_name", nullable = false, length = 45)
     private String roleName;
-    @ManyToMany(mappedBy = "rolesCollection", fetch = FetchType.LAZY)
+
+    @JoinTable(name = "roles_permissions", 
+            joinColumns = {
+                            @JoinColumn(name = "roles_roles_id", 
+                            referencedColumnName = "roles_id", 
+                            nullable = false)
+            }, 
+            inverseJoinColumns = {
+                @JoinColumn(name = "permissions_permission_id", 
+                        referencedColumnName = "permission_id", 
+                        nullable = false)
+            })
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.REFRESH})
     private Collection<Permissions> permissionsCollection;
-    @JoinTable(name = "user_roles", joinColumns = {
-        @JoinColumn(name = "roles_roles_id", referencedColumnName = "roles_id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "users_user_id", referencedColumnName = "user_id", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+
+    @ManyToMany(mappedBy = "rolesCollection")
     private Collection<Users> usersCollection;
 
     public Roles() {
@@ -103,7 +112,8 @@ public class Roles implements Serializable {
     public void setPermissionsCollection(Collection<Permissions> permissionsCollection) {
         this.permissionsCollection = permissionsCollection;
     }
-
+    
+    @JsonIgnore
     public Collection<Users> getUsersCollection() {
         return usersCollection;
     }
@@ -137,5 +147,4 @@ public class Roles implements Serializable {
         return "Roles{" + "rolesId=" + rolesId + ", roleName=" + roleName + ", permissionsCollection=" + permissionsCollection + ", usersCollection=" + usersCollection + '}';
     }
 
-    
 }

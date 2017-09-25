@@ -21,6 +21,8 @@
         <hibernate-core-version>5.2.11.Final</hibernate-core-version>
         <eclipse-collections>9.0.0</eclipse-collections>
         <querydsl.version>4.1.4</querydsl.version>
+        <javax.inject.version>1</javax.inject.version>
+        <jackson-databind.version>2.9.1</jackson-databind.version>
     </properties>
     
     <dependencies>
@@ -30,7 +32,16 @@
             <version>${querydsl.version}</version>
             <scope>provided</scope>
         </dependency>
- 
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>${javax.inject.version}</version>
+        </dependency>
+        <dependency>
+               <groupId>com.fasterxml.jackson.core</groupId>
+               <artifactId>jackson-databind</artifactId>
+               <version>${jackson-databind.version}</version>
+       </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
@@ -159,6 +170,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>gloster-cms</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
